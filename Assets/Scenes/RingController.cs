@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -6,14 +7,17 @@ using UnityEngine;
 
 public class RingController : MonoBehaviour
 {
-    public float rotationSpeed;
-    public GameObject doorGO;
-    public GameObject ringGO;
+    float rotationSpeed;
+    int ringID;
+    GameObject[] doorGOS;
+    GameObject[] ringGOS;
+
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-    
+        doorGOS = GameObject.FindGameObjectsWithTag("door");
+        ringGOS = GameObject.FindGameObjectsWithTag("outterRing");
     }
 
     // Update is called once per frame
@@ -25,10 +29,27 @@ public class RingController : MonoBehaviour
 
     void DoorControl()
     {
-        doorGO.transform.Rotate(0, 0, (rotationSpeed * Time.deltaTime));
+       //controle do comportamento das portas
     }
     void RingControl()
     {
-        ringGO.transform.Rotate(0, 0, (rotationSpeed * Time.deltaTime));
+        rotationSpeed = 60;
+        ringID = 5;
+
+        foreach (GameObject ring in ringGOS)
+        {   
+            ring.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+            if (rotationSpeed <= 450)
+            {
+                rotationSpeed *= 2;
+            }
+            else if (rotationSpeed <= 600)
+            {
+                rotationSpeed += 30;
+            }
+            Debug.Log("The ring speed is [" + rotationSpeed + "] for ring [" + ringID + "]");
+            ringID--;
+        }
+
     }
 }

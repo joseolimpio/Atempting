@@ -464,9 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7e28868d24bcf44b72b4dab280d430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0
-  doorGO: {fileID: 0}
-  ringGO: {fileID: 0}
 --- !u!4 &646376829
 Transform:
   m_ObjectHideFlags: 0
