@@ -9,21 +9,31 @@ public class RingController : MonoBehaviour
 {
     float rotationSpeed;
     int ringID;
-    GameObject[] doorGOS;
-    GameObject[] ringGOS;
-
+    public Transform transform;
+    public GameObject[] doorGOS;
+    public GameObject[] ringGOS;
+    public GameObject prefabRing;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        transform = GetComponent<Transform>();
+    }
     void Start()
     {
-        doorGOS = GameObject.FindGameObjectsWithTag("door");
-        ringGOS = GameObject.FindGameObjectsWithTag("outterRing");
+        int x = 6;
+        for (int i = 0; i < 5; i++)
+        {
+            prefabRing.transform.localScale = new Vector3(x, x, x);
+            ringGOS[i] = Instantiate(prefabRing, new Vector3(0, 0, 0), Quaternion.identity, transform);
+            x--;
+        }     
     }
 
     // Update is called once per frame
     void Update()
     {
-        //DoorControl(); alterar para checar 
         RingControl();
     }
 
@@ -35,10 +45,9 @@ public class RingController : MonoBehaviour
     {
         rotationSpeed = 60;
         ringID = 5;
-
-        foreach (GameObject ring in ringGOS)
-        {   
-            ring.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        for (int i = 0; i < 5; i++)
+        {
+            ringGOS[i].transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
             if (rotationSpeed <= 450)
             {
                 rotationSpeed *= 2;
@@ -52,4 +61,5 @@ public class RingController : MonoBehaviour
         }
 
     }
+
 }
